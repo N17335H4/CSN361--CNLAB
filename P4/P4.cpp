@@ -9,7 +9,105 @@
 #include <math.h>
 using namespace std;
 
-
+string subnetmask(int prefix)
+{
+	string a="0", b="0", c="0", d="0";
+	if(prefix>7) a="255";
+	if(prefix>15) b="255";
+	if(prefix>23) c="255";
+	switch(prefix)
+	{
+	case 1:
+		a="128";
+		break;
+	case 2:
+		a="192";
+		break;
+	case 3:
+		a="224";
+		break;
+	case 4:
+		a="240";
+		break;
+	case 5:
+		a="248";
+		break;
+	case 6:
+		a="252";
+		break;
+	case 7:
+		a="254";
+		break;
+	case 9:
+		b="128";
+		break;
+	case 10:
+		b="192";
+		break;
+	case 11:
+		b="224";
+		break;
+	case 12:
+		b="240";
+		break;
+	case 13:
+		b="248";
+		break;
+	case 14:
+		b="252";
+		break;
+	case 15:
+		b="254";
+		break;
+	case 17:
+		c="128";
+		break;
+	case 18:
+		c="192";
+		break;
+	case 19:
+		c="224";
+		break;
+	case 20:
+		c="240";
+		break;
+	case 21:
+		c="248";
+		break;
+	case 22:
+		c="252";
+		break;
+	case 23:
+		c="254";
+		break;
+	case 25:
+		d="128";
+		break;
+	case 26:
+		d="192";
+		break;
+	case 27:
+		d="224";
+		break;
+	case 28:
+		d="240";
+		break;
+	case 29:
+		d="248";
+		break;
+	case 30:
+		d="252";
+		break;
+	case 31:
+		d="254";
+		break;
+	case 32:
+		d="255";
+		break;
+	}
+	string sm = a + "." + b + "." + c + "." + d;
+	return sm;
+}
 
 int getOctetsIP(string ip, vector<int> &octetsIP) {		// Define vector<int> octets, using reference from main
 	stringstream sip(ip);								// use stringstream named ss and populate with ip
@@ -32,7 +130,7 @@ int getOctetsIP(string ip, vector<int> &octetsIP) {		// Define vector<int> octet
 			return 1;
 		}
 	}else{
-		cout << endl << "Please enter four octets in dot notation." << endl << endl;
+		//cout << endl << "Please enter four octets in dot notation." << endl << endl;
 		return 1;
 	}
 }
@@ -61,7 +159,7 @@ int getOctetsMask(string mask,  vector<int> &octetsMask) {
 			return 1;
 		}
 	}else{
-		cout << endl << "Please enter four octets in dot notation." << endl << endl;
+		//cout << endl << "Please enter four octets in dot notation." << endl << endl;
 		return 1;
 	}
 }
@@ -360,11 +458,15 @@ while (resp == 'y') {
 
 		// Get subnet mask octets //
 		string mask;
+		int pre;
 		vector<int> octetsMask;
 		while (getOctetsMask(mask, octetsMask) == 1) {
-		cout << endl << "Enter subnet mask for " << ip << " -> ";
-		(getline(cin, mask));	// Accept user input for subnet mask //
+		cout << "Enter subnet mask CIDR prefix for " << ip << " -> ";
+		//(getline(cin, mask));	// Accept user input for subnet mask //4
+		cin >> pre;
+		mask = subnetmask(pre);
 		}
+		cout << "Subnet Mask in dotted decimal notation: " << mask;
 		//cout << endl << endl << endl << endl << endl;
 
 		// Print Initial User IP and Subnet Mask //
@@ -444,10 +546,14 @@ while (resp == 'y') {
 		// cout << "///////////// Subnet Details /////////////" << endl;
 		// cout << "------------------------------------------" << endl;
 		vector<int> netIDRange = getNetIDRange(decimalNetID, netInc, decimalMask);
-		cout << "Network ID:            -           Broadcast ID: " << endl;
-			cout << "-------------------------------------------------" << endl;
-			cout << toString(netID) << " - [ usable hosts ] - ";
-		cout << toString(netIDRange) << endl << endl;
+		// cout << "Network ID:            -           Broadcast ID: " << endl;
+		// 	cout << "-------------------------------------------------" << endl;
+		// 	cout << toString(netID) << " - [ usable hosts ] - ";
+		// cout << toString(netIDRange) << endl << endl;
+
+		cout << "Network Address in dotted decimal notation: " << toString(netID) << endl;
+		cout << "Usable Host IP Range: " << endl;
+
 		// cout << "Network Increment: " << getIncrement(decimalMask, decimalNetID) << endl;
 		// cout << "Number of Subnets: " << getSubnets(decimalMask, ipClass, subClassMask) << endl;
 		// cout << "Usable hosts per subnet: " << getHostsPerSubnet(decimalMask) << endl;
