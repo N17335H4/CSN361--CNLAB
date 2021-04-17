@@ -1,6 +1,7 @@
 // Subnet Calculator, by rocco castoro
 
 //#include "stdafx.h"
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -107,6 +108,43 @@ string subnetmask(int prefix)
 	}
 	string sm = a + "." + b + "." + c + "." + d;
 	return sm;
+}
+
+string fha(string ip){
+	string pre = "" ;
+	int l = ip.length();
+	char c[l];
+	strcpy(c, ip.c_str());
+	if(c[l-2] == '.') {
+		for(int i=0;i<=l-2;i++) pre += c[i];
+	}
+	else if(c[l-3] == '.') {
+		for(int i=0;i<=l-3;i++) pre += c[i];
+	}
+	else if(c[l-4] == '.') {
+		for(int i=0;i<=l-4;i++) pre += c[i];
+	}
+	pre += "1";
+	return pre; 
+}
+
+
+string lha(string ip){
+	string pre = "" ;
+	int l = ip.length();
+	char c[l];
+	strcpy(c, ip.c_str());
+	if(c[l-2] == '.') {
+		for(int i=0;i<=l-2;i++) pre += c[i];
+	}
+	else if(c[l-3] == '.') {
+		for(int i=0;i<=l-3;i++) pre += c[i];
+	}
+	else if(c[l-4] == '.') {
+		for(int i=0;i<=l-4;i++) pre += c[i];
+	}
+	pre += "254";
+	return pre; 
 }
 
 int getOctetsIP(string ip, vector<int> &octetsIP) {		// Define vector<int> octets, using reference from main
@@ -552,7 +590,7 @@ while (resp == 'y') {
 		// cout << toString(netIDRange) << endl << endl;
 
 		cout << "Network Address in dotted decimal notation: " << toString(netID) << endl;
-		cout << "Usable Host IP Range: " << endl;
+		cout << "Usable Host IP Range: Starting IP " << fha(ip) << " --- Ending IP " << lha(ip) << endl ;
 
 		// cout << "Network Increment: " << getIncrement(decimalMask, decimalNetID) << endl;
 		// cout << "Number of Subnets: " << getSubnets(decimalMask, ipClass, subClassMask) << endl;
