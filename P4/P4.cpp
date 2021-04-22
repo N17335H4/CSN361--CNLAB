@@ -110,41 +110,93 @@ string subnetmask(int prefix)
 	return sm;
 }
 
+char next(char c){
+	switch(c){
+		case '0': 
+			c = '1';
+			break;
+		case '1': 
+			c = '2';
+			break;
+		case '2': 
+			c = '3';
+			break;
+		case '3': 
+			c = '4';
+			break;
+		case '4': 
+			c = '5';
+			break;
+		case '5': 
+			c = '6';
+			break;
+		case '6': 
+			c = '7';
+			break;
+		case '7': 
+			c = '8';
+			break;
+		case '8': 
+			c = '9';
+			break;
+	}
+	return c;
+}
+
+char prev(char c){
+	switch(c){
+		case '1': 
+			c = '0';
+			break;
+		case '2': 
+			c = '1';
+			break;
+		case '3': 
+			c = '2';
+			break;
+		case '4': 
+			c = '3';
+			break;
+		case '5': 
+			c = '4';
+			break;
+		case '6': 
+			c = '5';
+			break;
+		case '7': 
+			c = '6';
+			break;
+		case '8': 
+			c = '7';
+			break;
+		case '9': 
+			c = '8';
+			break;
+	}
+	return c;
+}
+
 string fha(string ip){
 	string pre = "" ;
 	int l = ip.length();
-	char c[l];
-	strcpy(c, ip.c_str());
-	if(c[l-2] == '.') {
-		for(int i=0;i<=l-2;i++) pre += c[i];
+	for (int i = 0; i < l-1; ++i)
+	{
+		pre += ip[i];
 	}
-	else if(c[l-3] == '.') {
-		for(int i=0;i<=l-3;i++) pre += c[i];
-	}
-	else if(c[l-4] == '.') {
-		for(int i=0;i<=l-4;i++) pre += c[i];
-	}
-	pre += "1";
-	return pre; 
+	pre += next(ip[l-1]);
+	return pre;
 }
 
 
 string lha(string ip){
 	string pre = "" ;
 	int l = ip.length();
-	char c[l];
-	strcpy(c, ip.c_str());
-	if(c[l-2] == '.') {
-		for(int i=0;i<=l-2;i++) pre += c[i];
+	for (int i = 0; i < l-1; ++i)
+	{
+		pre += ip[i];
 	}
-	else if(c[l-3] == '.') {
-		for(int i=0;i<=l-3;i++) pre += c[i];
-	}
-	else if(c[l-4] == '.') {
-		for(int i=0;i<=l-4;i++) pre += c[i];
-	}
-	pre += "254";
-	return pre; 
+	pre += prev(ip[l-1]);
+	return pre;
 }
 
 int getOctetsIP(string ip, vector<int> &octetsIP) {		// Define vector<int> octets, using reference from main
@@ -588,14 +640,23 @@ while (resp == 'y') {
 		// 	cout << "-------------------------------------------------" << endl;
 		// 	cout << toString(netID) << " - [ usable hosts ] - ";
 		// cout << toString(netIDRange) << endl << endl;
-
-		cout << "Network Address in dotted decimal notation: " << toString(netID) << endl;
-		cout << "Usable Host IP Range: Starting IP " << fha(ip) << " --- Ending IP " << lha(ip) << endl ;
-
+		string nad = toString(netID);
+		string bad = toString(netIDRange);
+		cout << "Network Address in dotted decimal notation: " << nad << endl;
+		
+		string fa = fha(nad);
+		string la = lha(bad);
+		
+		
 		// cout << "Network Increment: " << getIncrement(decimalMask, decimalNetID) << endl;
 		// cout << "Number of Subnets: " << getSubnets(decimalMask, ipClass, subClassMask) << endl;
-		// cout << "Usable hosts per subnet: " << getHostsPerSubnet(decimalMask) << endl;
+		//cout << "Usable hosts per subnet: " << getHostsPerSubnet(decimalMask) << endl;
 		// cout << endl << endl;
+		int noh = getHostsPerSubnet(decimalMask);
+		if (noh < 1)
+			cout << "Usable Host IP Range: Starting IP N//A --- Ending IP N//A" << endl ;
+		else
+			cout << "Usable Host IP Range: Starting IP " << fa << " --- Ending IP " << la << endl ;
 
 		cout << "Would you like to enter another IP Address to subnet? (y or n): ";
 		cin >> resp;
