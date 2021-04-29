@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include <stdio.h>
 #include <fstream>
 #include <string.h>
@@ -54,6 +55,24 @@ void division(char *message, char *generator, char *remainder, int m_len, int g_
     return;
 }
 
+
+int rem(string poly, int poly_len){
+    int power = poly_len - 1;
+    int result =0, coef;
+    char arr[poly_len];
+    char *cha;
+    strcpy(arr, poly.c_str());
+    for (int i = 0; i < poly_len; ++i)
+    {
+        *cha = arr[i];
+        coef = atoi(cha);
+        result += coef*pow(-1,power);
+        power--;
+    }
+    return result;
+}
+
+
 int main()
 {
 
@@ -69,6 +88,24 @@ int main()
         getline(myfile, line);
         int k_len;
         k_len = line.length();
+        int eh =0;
+        if (line[k_len - 1]=='0')
+        {
+            cout << "Error. Polynomial is divisible by x" << endl;
+            eh++;
+            if ( rem(line,k_len)==0 )
+            {
+                cout << "Error. Polynomial is divisible by x+1" << endl;
+                eh++;
+            }
+        }
+        
+        if (eh>0)
+        {
+            ofstream file("Output.txt");
+            file << "Error";
+            return 0;
+        }
         char polynomial[k_len + 1];
         strcpy(polynomial, line.c_str());
         //  cout << "print input " << sizeof(input_message) << endl;
@@ -117,12 +154,12 @@ int main()
          cout << endl;
          print_char(polynomial, k_len);
         myfile.close();
-        ofstream myfile("Output.txt");
-        if (myfile.is_open())
+        ofstream file("Output.txt");
+        if (file.is_open())
         {
             //  myfile<<"output"<<endl;
-            myfile << output_message << endl;
-            myfile << polynomial << endl;
+            file << output_message << endl;
+            file << polynomial << endl;
         }
     }
     cout << endl;
