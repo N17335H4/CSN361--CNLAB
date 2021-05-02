@@ -86,10 +86,26 @@ int main()
         i_len = line.length();
         char input_message[i_len];
         strcpy(input_message, line.c_str());
+        for (int i = 0; i < i_len; ++i)
+        {
+            if (input_message[i] != '0' && input_message[i] != '1')
+            {
+                cout << "Invalid input message format" << endl;
+                return 0;
+            }
+        }
         getline(myfile, line);
         cout << "Polynomial: " << line << endl;
         int k_len;
         k_len = line.length();
+        for (int i = 0; i < k_len; ++i)
+        {
+            if (line[i] != '0' && line[i] != '1')
+            {
+                cout << "Invalid polynomial format" << endl;
+                return 0;
+            }
+        }
         int eh =0;
         if (line[k_len - 1]=='0')
         {
