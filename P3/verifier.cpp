@@ -41,7 +41,7 @@ int main()
         }
 
     }
-    cout<<"Transmission Successful,NO error found"<<endl;
+    cout<<"Transmission Successful, NO error found"<<endl;
 
     return 0;
 }

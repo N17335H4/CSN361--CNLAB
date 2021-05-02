@@ -81,11 +81,13 @@ int main()
     if (myfile.is_open())
     {
         getline(myfile, line);
+        cout << "Input message: " << line << endl;
         int i_len;
         i_len = line.length();
         char input_message[i_len];
         strcpy(input_message, line.c_str());
         getline(myfile, line);
+        cout << "Polynomial: " << line << endl;
         int k_len;
         k_len = line.length();
         int eh =0;
@@ -93,13 +95,12 @@ int main()
         {
             cout << "Error. Polynomial is divisible by x" << endl;
             eh++;
-            if ( rem(line,k_len)==0 )
+        }
+        if ( rem(line,k_len)==0 )
             {
                 cout << "Error. Polynomial is divisible by x+1" << endl;
                 eh++;
             }
-        }
-        
         if (eh>0)
         {
             ofstream file("Output.txt");
@@ -150,9 +151,11 @@ int main()
         }
         //      cout<<"The new Message:"<<sizeof(output_message)<<endl;
        
+        cout << "Output Message: ";
         print_char(output_message, message_size);
-         cout << endl;
-         print_char(polynomial, k_len);
+        cout << endl;
+        cout << "Polynomial: ";
+        print_char(polynomial, k_len);
         myfile.close();
         ofstream file("Output.txt");
         if (file.is_open())

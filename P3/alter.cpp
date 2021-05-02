@@ -28,17 +28,19 @@ int main(int arg, char *argv[])
     getline(myfile, line);
     int k=line.length();
     // alter the bitNo in the passed message
-  if(bitNo<k+i_len){
-    if (output_message[bitNo - 1] == '1')
-        output_message[bitNo - 1] = '0';
-    else
-        output_message[bitNo - 1] = '1';
-  }
+    if(bitNo<k+i_len){
+        if (output_message[bitNo - 1] == '1')
+            output_message[bitNo - 1] = '0';
+        else
+            output_message[bitNo - 1] = '1';
+    }
+    cout << "Output Message: ";
     print_char(output_message, i_len);
-    cout<<endl<<line<<endl;
+    cout<<endl<< "Polynomial: " <<line<<endl;
     myfile.close();
 
-    ofstream file("Output.txt", ios::trunc);
+    ofstream file;
+    file.open("Output.txt", ios::trunc);
         if (file.is_open())
         {
             file << output_message << endl;
