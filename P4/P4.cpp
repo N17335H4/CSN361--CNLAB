@@ -105,6 +105,9 @@ string subnetmask(int prefix)
 	case 32:
 		d="255";
 		break;
+	default: 
+		perror("Invalid prefix entered\n");
+		abort();
 	}
 	string sm = a + "." + b + "." + c + "." + d;
 	return sm;
@@ -216,11 +219,12 @@ int getOctetsIP(string ip, vector<int> &octetsIP) {		// Define vector<int> octet
 		if (ipInRange[0]==true&&ipInRange[1]==true&&ipInRange[2]==true&&ipInRange[3]==true){
 			return 0;
 		}else{
-			cout << endl << "There are only 255 bits per octet. Please re-enter IP." << endl << endl;
+			cout << "There are only 255 bits per octet. Please re-enter IP." << endl;
 			return 1;
 		}
-	}else{
-		//cout << endl << "Please enter four octets in dot notation." << endl << endl;
+	}
+	else{
+		cout << "Please enter four octets in dot notation." << endl;
 		return 1;
 	}
 }
@@ -245,11 +249,11 @@ int getOctetsMask(string mask,  vector<int> &octetsMask) {
 		if(maskInRange[0]==true&&maskInRange[1]==true&&maskInRange[2]==true&&maskInRange[3]==true){
 			return 0;
 		}else{
-			cout << endl << "Subnet masks only use 2^[0-7]. Please re-enter mask." << endl << endl;
+			cout << "Subnet masks only use 2^[0-7]. Please re-enter mask." << endl;
 			return 1;
 		}
 	}else{
-		//cout << endl << "Please enter four octets in dot notation." << endl << endl;
+		//cout << "Please enter four octets in dot notation." << endl;
 		return 1;
 	}
 }
