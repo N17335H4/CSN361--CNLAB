@@ -36,14 +36,10 @@ public static void sendPingRequest(String ipAddress)
 	if (geek.isReachable(5000))
 	System.out.println("Host is reachable");
 	else
-	System.out.println("Sorry ! We can't reach to this host");
+	System.out.println("Sorry! We can't reach to this host");
 }
 
-// Driver code
 /*
-public static void main(String[] args)
-		throws UnknownHostException, IOException
-{
 	String ipAddress = "127.0.0.1";
 	sendPingRequest(ipAddress);
 
@@ -52,8 +48,6 @@ public static void main(String[] args)
 
 	ipAddress = "145.154.42.58";
 	sendPingRequest(ipAddress);
-}
-}
 */
 public static void main(String[] args)
 		throws UnknownHostException, IOException
