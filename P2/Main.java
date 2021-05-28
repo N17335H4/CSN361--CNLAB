@@ -1,4 +1,4 @@
-// Java Program to Ping an IP address
+// Java Program to Ping an IP address/hostname
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -57,5 +57,15 @@ public static void main(String[] args)
 	System.out.println("Enter the IP Address to be pinged: ");
 	ipAddress = sc.nextLine();
 	sendPingRequest(ipAddress);
+
+
+	// String hostname = args[0];
+ //        int port = 13;                     // daytime port
+
+
+ //        Socket socket = new Socket(hostname, port);
+ //        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+ //        String time = br.readLine();
+ //        StdOut.println("time = " + time + " on machine " + hostname);
 }
 }
