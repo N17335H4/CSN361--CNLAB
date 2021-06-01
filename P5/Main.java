@@ -3,15 +3,15 @@ import java.util.*;
 public class Main{
 	public static void main(String args[]){
 		Scanner scan = new Scanner(System.in);
-		System.out.print("IPv4 CHECKSUM CALCULATION\n");
-		System.out.println("IPv4 header format: \n");
+		System.out.print("IPv4 CHECKSUM CALCULATION\n\n");
+		System.out.println("IPv4 header format: ");
 		System.out.print("0--Version--3--HeaderLength--7--TypeOfService--15---------TotalLength--------------31\n");
 		System.out.print("0------------------Identifier------------------15--Flags--18----FragmentOffset-----31\n");
 		System.out.print("0---------TImeToLive---------7-----Protocol----15-----------HeaderChecksum---------31\n");
 		System.out.print("0--------------------------------SourceAddress-------------------------------------31\n");
-		System.out.print("0-----------------------------DestinationAddress-----------------------------------31\n");
-		System.out.println("Process: The checksum field is the 16-bit ones' complement of the ones' complement sum of all 16-bit words in the header. For ones' complement sum, each time a carry occurs, we must add a 1 to the sum.")
-		System.out.println("Note: The values of the fields asked are required to be in hexadecimal format. The results are printed in hexadecimal format");
+		System.out.print("0-----------------------------DestinationAddress-----------------------------------31\n\n");
+		System.out.println("Process: The checksum field is the 16-bit ones' complement of the ones' complement sum of all 16-bit words in the header. For ones' complement sum, each time a carry occurs, we must add a 1 to the sum.");
+		System.out.println("Note: The values of the fields asked are required to be in hexadecimal format. The results are printed in hexadecimal format.\n");
 		System.out.println("Enter the IP Version, Header Length and Type of Service: ");
 		String half1 = scan.next();
 		System.out.println("IP version : "+half1.charAt(0) + ", Header Length : "+half1.charAt(1)+ ", TOS : "+half1.charAt(2)+half1.charAt(3));
@@ -53,6 +53,13 @@ public class Main{
 		System.out.println("Sum of above inputs until 160 bits excluding Checksum field: "+Integer.toHexString(finalSum));		
 		int checksum = onesComplement(finalSum);
 		System.out.println("Checksum generated upon complementing the last sum is "+ Integer.toHexString(checksum));
+		System.out.print("\n");
+		System.out.println("VERIFICATION:");
+		System.out.println("Sum of all given inputs along with the checksum generated should be ffff.");		
+		int verify = sum(Integer.toHexString(checksum), Integer.toHexString(finalSum));
+		System.out.println("Sum of all given inputs along with checksum is observed as "+Integer.toHexString(verify));
+		if(Integer.toHexString(verify) == "ffff") System.out.println("Successful Verification.");
+		else System.out.println("Found a problem in verification.");
 	}
 
 	static int sum(String s1, String s2){
